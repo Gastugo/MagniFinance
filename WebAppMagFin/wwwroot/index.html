@@ -1,0 +1,22 @@
+<html>
+<head>
+    <script>
+        // Crie um objeto URLSearchParams com a query string atual
+        const queryString = new URLSearchParams(window.location.search);
+
+        // Leia os parâmetros da query string
+        const perfil = queryString.get("perfil");
+
+        // Exiba os valores na página
+        document.write("<p>Perfil: " + perfil + "</p>");
+    </script>
+</head>
+<body>
+
+    <h2>LOGADO</h2>
+    <br />
+    <a href="JavaScript:history.back()">HOME</a>
+
+</body>
+
+</html>

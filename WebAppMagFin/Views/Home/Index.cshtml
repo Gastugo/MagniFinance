@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "MAGNIFINANCE - GH7";
+}
+
+<script>
+    function entrar(IdPerfil) {
+       //alert("id = " + IdPerfil);
+
+       if(IdPerfil === 1)
+        window.location.href = "index.html?perfil=Professor";
+       
+       if(IdPerfil === 2)
+        window.location.href = "index.html?perfil=Aluno";
+
+    }
+</script>
+
+
+<div class="text-center">
+    <h1 id="h1Tst" class="display-4">MAGNIFINANCE</h1>
+    
+    <p style="text-align:right;">
+        Logar como: 
+        <button id="meuBotao1" onclick="JavaScript:entrar(1);">PROFESSOR</button><br />
+        <button id="meuBotao2" onclick="JavaScript:entrar(2);">ALUNO</button>
+    </p>
+    
+</div>
+

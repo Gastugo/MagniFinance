@@ -1,0 +1,20 @@
+﻿@model WebAppMagFin.Program
+
+@using (Html.BeginForm("entrar", "HomeController", FormMethod.Post))
+{
+    ViewData["Title"] = "MAGNIFINANCE";
+
+
+<h1>USER LOGADO</h1>
+
+<div>
+    <h4>Program</h4>
+    <hr />
+    <dl class="row">
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("View", "View", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Home</a>
+</div>
+}

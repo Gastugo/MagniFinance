@@ -1,0 +1,84 @@
+﻿USE magnifinance
+
+DROP TABLE [dbo].[Matricula]
+DROP TABLE [dbo].[Disciplina]
+DROP TABLE [dbo].[Curso]
+DROP TABLE [dbo].[Aluno]
+DROP TABLE [dbo].[Professor]
+
+
+CREATE TABLE [dbo].[Professor]
+(
+	[Id] INT IDENTITY(1,1) PRIMARY KEY,
+	[Nome] VARCHAR(50) NOT NULL,
+	[DtNasc] DATETIME NOT NULL,
+	[Salario] NUMERIC(18, 2) NOT NULL
+)
+
+CREATE TABLE [dbo].[Aluno]
+(
+	[IdMatricula] INT IDENTITY(1,1) PRIMARY KEY,
+	[Nome] VARCHAR(50) NOT NULL,
+	[DtNasc] DATETIME NOT NULL
+)
+
+CREATE TABLE [dbo].[Curso]
+(
+	[Id] INT IDENTITY(1,1) PRIMARY KEY, 
+	[Nome] VARCHAR(50) NOT NULL
+)
+
+CREATE TABLE [dbo].[Disciplina]
+(
+	[Id] INT IDENTITY(1,1) PRIMARY KEY,
+	[Nome] VARCHAR(50) NOT NULL,
+	[IdCurso] INT,
+	[IdProfessor] INT,
+
+	CONSTRAINT FK_DisciplinaCurso FOREIGN KEY (IdCurso)	REFERENCES Curso(Id),
+	CONSTRAINT FK_DisciplinaProfessor FOREIGN KEY (IdProfessor) REFERENCES Professor(Id)
+)
+
+CREATE TABLE [dbo].[Matricula]
+(
+	[IdMatricula] INT NOT NULL,
+	[IdDisciplina] INT NOT NULL,
+	[Nota] INT NULL,
+
+	CONSTRAINT PK_MatriculaDisciplina PRIMARY KEY (IdMatricula, IdDisciplina)
+)
+
+
+--dados de teste
+INSERT INTO ALUNO VALUES ('JOÃO SILVA', '2/2/1996')
+INSERT INTO ALUNO VALUES ('MARIA PINHEIRO', '2/2/1998')
+INSERT INTO ALUNO VALUES ('FRED NASCIMENTO', '2/2/1989')
+INSERT INTO ALUNO VALUES ('ANA FIGUEIRA', '2/2/1999')
+INSERT INTO ALUNO VALUES ('CARLOS SIQUEIRA', '5/5/2001')
+
+INSERT INTO PROFESSOR VALUES ('PROF. CLAUDIO', '2/2/1975', 2.20)
+INSERT INTO PROFESSOR VALUES ('PROF. MARCO', '2/2/1977', 2.20)
+INSERT INTO PROFESSOR VALUES ('PROFa. BIA', '2/2/1972', 2.20)
+
+INSERT INTO CURSO VALUES ('Segurança da Informação')
+INSERT INTO CURSO VALUES ('Inteligência Artificial')
+
+INSERT INTO DISCIPLINA VALUES ('Leis acerca da segurança da informação', 1, 1)
+INSERT INTO DISCIPLINA VALUES ('As principais ameaças à segurança da informação', 1, 2)
+INSERT INTO DISCIPLINA VALUES ('Melhores prática no uso de Inteligência Artifical', 2, 3)
+
+
+INSERT INTO MATRICULA VALUES (1, 1, Null)
+INSERT INTO MATRICULA VALUES (1, 2, Null)
+INSERT INTO MATRICULA VALUES (5, 1, Null)
+INSERT INTO MATRICULA VALUES (5, 2, Null)
+INSERT INTO MATRICULA VALUES (3, 1, Null)
+INSERT INTO MATRICULA VALUES (3, 2, Null)
+INSERT INTO MATRICULA VALUES (1, 3, Null)
+INSERT INTO MATRICULA VALUES (4, 3, Null)
+
+
+SELECT * FROM Curso C INNER JOIN Disciplina D ON C.Id = D.IdCurso
+						INNER JOIN Professor P ON P.Id = D.IdProfessor
+						INNER JOIN Matricula M ON D.Id = M.IdDisciplina
+						INNER JOIN Aluno A ON a.IdMatricula = M.IdMatricula
